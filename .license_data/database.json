@@ -1,0 +1,381 @@
+{
+  "keys": {
+    "publicKey": "udK1C4pf3NhDlvrXJPo0aKDxDRqhS6Bg1U+yzjoKj/Y=",
+    "privateKey": "ve3fcLzLb0yUHoPCMS0IQqD3DdfVZVsMwTttiJiFzly50rULil/c2EOW+tck+jRooPENGqFLoGDVT7LOOgqP9g=="
+  },
+  "admins": [
+    {
+      "id": "adm-muntkklj-lu5a",
+      "username": "christopheres",
+      "email": "rfc512.mg@gmail.com",
+      "fullName": "RAVELOARISON Fenoherisoa Christopheres",
+      "passwordHash": "pbkdf2$100000$1591fbadcf95bcf84181aad4b1f85092$b73486ed6c679f5a422bf38f9586fe4fcf48ad64e544127c03f9114e78a1578b01bf4bc287be98919cf291e0ac544063f01a7b197e44df8945d22ce3e63b06b2",
+      "role": "SUPER_ADMIN",
+      "isActive": true,
+      "lastLoginAt": "2026-09-30T08:05:06.768Z",
+      "createdAt": "2026-09-30T08:04:30.919Z",
+      "updatedAt": "2026-09-30T08:05:06.768Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-000001",
+      "productCode": "IANATRA",
+      "productName": "I-ANATRA School Management Software",
+      "description": "Système professionnel de gestion scolaire locale pour établissements scolaires.",
+      "currentVersion": "1.0.0",
+      "isActive": true,
+      "createdAt": "2026-09-30T07:52:53.378Z",
+      "updatedAt": "2026-09-30T07:52:53.378Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": "cus-muntmimw-xzgb",
+      "customerCode": "CUS-000001",
+      "schoolName": "college privé safidy",
+      "responsibleName": "Madagascar Étoile Alu",
+      "email": "etoile.alu.mada@gmail.com",
+      "phone": "+261382776393",
+      "address": "By pass - Iavoloha",
+      "city": "Antananarivo",
+      "country": "Madagascar",
+      "notes": null,
+      "status": "ACTIVE",
+      "createdAt": "2026-09-30T08:06:01.688Z",
+      "updatedAt": "2026-09-30T08:06:01.688Z"
+    }
+  ],
+  "licenses": [
+    {
+      "id": "lic-uuid-muntn09j-o49yj",
+      "licenseId": "LIC-000001",
+      "licenseKeyHash": "78a62f5d7c00cecb2371fbd4cb182bb78cefa950fdd1445caa83dd87d3eda178",
+      "licenseKeyLast4": "D93H",
+      "customerId": "cus-muntmimw-xzgb",
+      "productId": "prod-000001",
+      "licenseType": "ANNUAL",
+      "status": "ACTIVE",
+      "issuedAt": "2026-09-30T08:06:24.535Z",
+      "activatedAt": null,
+      "expiresAt": "2028-09-30T08:06:24.535Z",
+      "maxInstallations": 1,
+      "currentInstallations": 0,
+      "featuresJson": "[\"STUDENT_MANAGEMENT\",\"FINANCE\",\"GRADES\",\"TIMETABLE\",\"ATTENDANCE\",\"REPORTS\",\"BACKUP\"]",
+      "createdBy": "adm-muntkklj-lu5a",
+      "updatedAt": "2026-09-30T08:10:07.999Z"
+    }
+  ],
+  "installations": [],
+  "activationEvents": [
+    {
+      "id": "evt-1790757858205-isl9",
+      "licenseId": null,
+      "installationId": "INS-ANY",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": null,
+      "machineName": "PC",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T08:44:18.205Z"
+    },
+    {
+      "id": "evt-1790755773558-6kqx",
+      "licenseId": null,
+      "installationId": "INS-HDYPVBHRDUG",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": "127.0.0.1",
+      "machineName": "PC-ECOLE-AISDEVSS",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T08:09:33.558Z"
+    },
+    {
+      "id": "evt-1790755756775-a3lg",
+      "licenseId": null,
+      "installationId": "INS-HDYPVBHRDUG",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": "127.0.0.1",
+      "machineName": "PC-ECOLE-AISDEVSS",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T08:09:16.775Z"
+    },
+    {
+      "id": "evt-1790755742605-v6fq",
+      "licenseId": null,
+      "installationId": "INS-WL8DFREFM17C",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": "127.0.0.1",
+      "machineName": "PC-ECOLE-AISDEVSS",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T08:09:02.605Z"
+    },
+    {
+      "id": "evt-1790755730217-i2lq",
+      "licenseId": null,
+      "installationId": "INS-ANY",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": null,
+      "machineName": "PC",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T08:08:50.217Z"
+    },
+    {
+      "id": "evt-1790755716414-9kal",
+      "licenseId": null,
+      "installationId": "INS-WL8DFREFM17C",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": "127.0.0.1",
+      "machineName": "PC-ECOLE-AISDEVSS",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T08:08:36.414Z"
+    },
+    {
+      "id": "evt-1790755710979-c883",
+      "licenseId": null,
+      "installationId": "INS-WL8DFREFM17C",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": "127.0.0.1",
+      "machineName": "PC-ECOLE-AISDEVSS",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T08:08:30.979Z"
+    },
+    {
+      "id": "evt-1790754971796-ja25",
+      "licenseId": null,
+      "installationId": "INS-ANY",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": null,
+      "machineName": "PC",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T07:56:11.796Z"
+    },
+    {
+      "id": "evt-1790754773452-md1n",
+      "licenseId": null,
+      "installationId": "INS-ANY",
+      "eventType": "ACTIVATION_REJECTED",
+      "ipAddress": null,
+      "machineName": "PC",
+      "appVersion": "1.0.0",
+      "success": false,
+      "failureReason": "Clé de licence introuvable.",
+      "createdAt": "2026-09-30T07:52:53.452Z"
+    }
+  ],
+  "transferRequests": [],
+  "auditLogs": [
+    {
+      "id": "aud-1790757858205",
+      "adminId": null,
+      "action": "LICENSE_RENEWED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000002",
+      "description": "Renouvellement de 12 mois. Nouvelle expiration : 2028-09-30T08:44:18.080Z",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:44:18.205Z"
+    },
+    {
+      "id": "aud-1790757858192",
+      "adminId": null,
+      "action": "LICENSE_TRANSFERRED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000002",
+      "description": "Transfert autorisé de INS-POSTE-TEST-01 vers nouvelle machine. Motif : Remplacement poste informatique établissement",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:44:18.192Z"
+    },
+    {
+      "id": "aud-1790757858150",
+      "adminId": null,
+      "action": "LICENSE_REVOKED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000004",
+      "description": "Révocation de la licence LIC-000004. Motif : Révocation de test",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:44:18.150Z"
+    },
+    {
+      "id": "aud-1790755807999",
+      "adminId": "adm-muntkklj-lu5a",
+      "action": "LICENSE_RENEWED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000001",
+      "description": "Renouvellement de 12 mois. Nouvelle expiration : 2028-09-30T08:06:24.535Z",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:10:07.999Z"
+    },
+    {
+      "id": "aud-1790755799211",
+      "adminId": "adm-muntkklj-lu5a",
+      "action": "LICENSE_REVOKED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000001",
+      "description": "Révocation de la licence LIC-000001. Motif : te",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:09:59.211Z"
+    },
+    {
+      "id": "aud-1790755730216",
+      "adminId": null,
+      "action": "LICENSE_RENEWED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000002",
+      "description": "Renouvellement de 12 mois. Nouvelle expiration : 2028-09-30T08:08:50.120Z",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:08:50.216Z"
+    },
+    {
+      "id": "aud-1790755730206",
+      "adminId": null,
+      "action": "LICENSE_TRANSFERRED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000002",
+      "description": "Transfert autorisé de INS-POSTE-TEST-01 vers nouvelle machine. Motif : Remplacement poste informatique établissement",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:08:50.205Z"
+    },
+    {
+      "id": "aud-1790755730171",
+      "adminId": null,
+      "action": "LICENSE_REVOKED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000004",
+      "description": "Révocation de la licence LIC-000004. Motif : Révocation de test",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:08:50.171Z"
+    },
+    {
+      "id": "aud-1790755584535",
+      "adminId": "adm-muntkklj-lu5a",
+      "action": "LICENSE_GENERATED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000001",
+      "description": "Génération licence ANNUAL pour college privé safidy (LIC-000001, fin D93H)",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:06:24.535Z"
+    },
+    {
+      "id": "aud-1790755561688",
+      "adminId": "adm-muntkklj-lu5a",
+      "action": "CUSTOMER_CREATED",
+      "entityType": "CUSTOMER",
+      "entityId": "CUS-000001",
+      "description": "Création client/école : college privé safidy (CUS-000001)",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:06:01.688Z"
+    },
+    {
+      "id": "aud-1790755506768",
+      "adminId": "adm-muntkklj-lu5a",
+      "action": "ADMIN_LOGIN",
+      "entityType": "ADMIN",
+      "entityId": "adm-muntkklj-lu5a",
+      "description": "Connexion administrateur réussie (christopheres, rôle: SUPER_ADMIN)",
+      "ipAddress": "127.0.0.1",
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:05:06.768Z"
+    },
+    {
+      "id": "aud-1790755470995",
+      "adminId": "adm-muntkklj-lu5a",
+      "action": "FIRST_SUPER_ADMIN_CREATED",
+      "entityType": "ADMIN",
+      "entityId": "adm-muntkklj-lu5a",
+      "description": "Création sécurisée du premier administrateur RFC OFFICE (christopheres)",
+      "ipAddress": "127.0.0.1",
+      "userAgent": null,
+      "createdAt": "2026-09-30T08:04:30.919Z"
+    },
+    {
+      "id": "aud-1790754971796",
+      "adminId": null,
+      "action": "LICENSE_RENEWED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000001",
+      "description": "Renouvellement de 12 mois. Nouvelle expiration : 2028-09-30T07:56:11.690Z",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T07:56:11.796Z"
+    },
+    {
+      "id": "aud-1790754971789",
+      "adminId": null,
+      "action": "LICENSE_TRANSFERRED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000001",
+      "description": "Transfert autorisé de INS-POSTE-TEST-01 vers nouvelle machine. Motif : Remplacement poste informatique établissement",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T07:56:11.788Z"
+    },
+    {
+      "id": "aud-1790754971750",
+      "adminId": null,
+      "action": "LICENSE_REVOKED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000003",
+      "description": "Révocation de la licence LIC-000003. Motif : Révocation de test",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T07:56:11.750Z"
+    },
+    {
+      "id": "aud-1790754773451",
+      "adminId": null,
+      "action": "LICENSE_RENEWED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000001",
+      "description": "Renouvellement de 12 mois. Nouvelle expiration : 2028-09-30T07:52:53.382Z",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T07:52:53.451Z"
+    },
+    {
+      "id": "aud-1790754773439",
+      "adminId": null,
+      "action": "LICENSE_TRANSFERRED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000001",
+      "description": "Transfert autorisé de INS-POSTE-TEST-01 vers nouvelle machine. Motif : Remplacement poste informatique établissement",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T07:52:53.439Z"
+    },
+    {
+      "id": "aud-1790754773397",
+      "adminId": null,
+      "action": "LICENSE_REVOKED",
+      "entityType": "LICENSE",
+      "entityId": "LIC-000003",
+      "description": "Révocation de la licence LIC-000003. Motif : Révocation de test",
+      "ipAddress": null,
+      "userAgent": null,
+      "createdAt": "2026-09-30T07:52:53.397Z"
+    }
+  ]
+}

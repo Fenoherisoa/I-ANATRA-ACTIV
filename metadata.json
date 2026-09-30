@@ -1,0 +1,6 @@
+{
+  "name": "I-ANATRA — Système de Licence Commerciale RFC OFFICE",
+  "description": "Système officiel de gestion et d'activation de licences commerciales I-ANATRA par RFC OFFICE avec signatures cryptographiques Ed25519.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

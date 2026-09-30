@@ -1,0 +1,108 @@
+rules_version = '2';
+
+/**
+ * RFC OFFICE - I-ANATRA License Server
+ * Règles de sécurité Zero-Trust pour Cloud Firestore
+ *
+ * PRINCIPE FONDAMENTAL :
+ * Toutes les opérations de licensing (activation, vérification, heartbeat, génération, transfert)
+ * sont exécutées exclusivement côté serveur par Firebase Cloud Functions via le Firebase Admin SDK.
+ * Le Admin SDK outrepasse les règles de sécurité Firestore de manière sécurisée.
+ *
+ * AUCUN CLIENT externe (y compris I-ANATRA.exe ou un navigateur web non autorisé)
+ * n'a le droit d'écrire ou de lire directement les collections de licensing dans Firestore !
+ *
+ * © 2026 RFC OFFICE — Tous droits réservés
+ */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper d'authentification Firebase Auth
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Helper de vérification du rôle Super Administrateur
+    function isSuperAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'SUPER_ADMIN';
+    }
+
+    // Helper de vérification d'un administrateur actif (tous rôles)
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.status == 'ACTIVE';
+    }
+
+    // 1. Verrou universel par défaut : Refus total de toute lecture et écriture non explicitement autorisée
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Collection PRODUCTS (Catalogue de produits RFC OFFICE)
+    // Lecture : Administrateurs RFC uniquement
+    // Écriture : Super Admin uniquement (ou Cloud Functions Admin SDK)
+    match /products/{productId} {
+      allow read: if isAdmin();
+      allow write: if isSuperAdmin();
+    }
+
+    // 3. Collection CUSTOMERS (Établissements scolaires sous licence)
+    // Ne contient aucune donnée d'élèves ou scolaire.
+    // Accès réservé exclusivement aux administrateurs autorisés
+    match /customers/{customerId} {
+      allow read: if isAdmin();
+      allow write: if isSuperAdmin();
+    }
+
+    // 4. Collection LICENSES (Licences officielles avec clés hachées)
+    // Interdiction formelle d'accès direct par les clients !
+    // Toutes les vérifications passent obligatoirement par les Cloud Functions.
+    match /licenses/{licenseId} {
+      allow read: if isAdmin();
+      allow write: if isSuperAdmin();
+    }
+
+    // 5. Collection INSTALLATIONS (Postes autorisés INS-XXXXXXXXXXXX)
+    // Interdiction formelle d'accès direct par les clients.
+    match /installations/{installationId} {
+      allow read: if isAdmin();
+      allow write: if false; // Géré strictement par Cloud Functions Admin SDK
+    }
+
+    // 6. Collection ACTIVATION EVENTS (Historique des activations et vérifications)
+    // Interdiction formelle d'écriture par les clients.
+    match /activationEvents/{eventId} {
+      allow read: if isAdmin();
+      allow write: if false; // Enregistré uniquement par Cloud Functions Admin SDK
+    }
+
+    // 7. Collection TRANSFER REQUESTS (Demandes de transfert de poste)
+    match /transferRequests/{requestId} {
+      allow read: if isAdmin();
+      allow write: if isSuperAdmin();
+    }
+
+    // 8. Collection AUDIT LOGS (Piste d'audit immuable)
+    // Immuable : aucune modification ou suppression permise, même par un admin
+    match /auditLogs/{auditId} {
+      allow read: if isSuperAdmin();
+      allow write: if false; // Écrit uniquement par le serveur
+    }
+
+    // 9. Collection SETTINGS (Paramètres globaux du serveur de licences)
+    match /settings/{settingId} {
+      allow read: if isAdmin();
+      allow write: if isSuperAdmin();
+    }
+
+    // 10. Collection ADMINS (Utilisateurs administratifs avec rôles RBAC)
+    match /admins/{adminId} {
+      allow read: if isSignedIn() && (request.auth.uid == adminId || isSuperAdmin());
+      allow write: if isSuperAdmin();
+    }
+  }
+}

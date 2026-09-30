@@ -1,0 +1,222 @@
+// I-ANATRA License Server - PostgreSQL Prisma Schema
+// © 2026 RFC OFFICE — Tous droits réservés
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  LICENSE_MANAGER
+  SUPPORT
+  VIEWER
+}
+
+enum LicenseType {
+  PERPETUAL
+  ANNUAL
+  TRIAL
+}
+
+enum LicenseStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  REVOKED
+  BLOCKED
+}
+
+enum InstallationStatus {
+  ACTIVE
+  REVOKED
+  BLOCKED
+}
+
+enum ActivationEventType {
+  ACTIVATION_REQUEST
+  ACTIVATED
+  ACTIVATION_REJECTED
+  VERIFICATION
+  HEARTBEAT
+  TRANSFER
+  REVOCATION
+  REACTIVATION
+}
+
+enum TransferStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+  CANCELLED
+}
+
+model Admin {
+  id           String    @id @default(uuid())
+  username     String    @unique
+  email        String    @unique
+  passwordHash String
+  fullName     String
+  role         AdminRole @default(VIEWER)
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  auditLogs        AuditLog[]
+  createdLicenses  License[]         @relation("LicenseCreator")
+  approvedTransfers TransferRequest[] @relation("TransferApprover")
+
+  @@map("admins")
+}
+
+model Customer {
+  id              String   @id @default(uuid())
+  customerCode    String   @unique // ex: CUS-000001
+  schoolName      String
+  responsibleName String
+  email           String
+  phone           String
+  address         String
+  city            String
+  country         String   @default("Madagascar")
+  notes           String?
+  status          String   @default("ACTIVE")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  licenses      License[]
+  installations Installation[]
+
+  @@map("customers")
+}
+
+model Product {
+  id             String   @id @default(uuid())
+  productCode    String   @unique // ex: IANATRA
+  productName    String
+  description    String?
+  currentVersion String   @default("1.0.0")
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  licenses      License[]
+  installations Installation[]
+
+  @@map("products")
+}
+
+model License {
+  id                   String        @id @default(uuid())
+  licenseId            String        @unique // ex: LIC-000001
+  licenseKeyHash       String        @unique // Hachage SHA-256 / Argon2id
+  licenseKeyLast4      String        // ex: 5T2A pour affichage masqué
+  customerId           String
+  productId            String
+  licenseType          LicenseType   @default(ANNUAL)
+  status               LicenseStatus @default(PENDING)
+  issuedAt             DateTime      @default(now())
+  activatedAt          DateTime?
+  expiresAt            DateTime?     // Null pour PERPETUAL
+  maxInstallations     Int           @default(1)
+  currentInstallations Int           @default(0)
+  featuresJson         String        @default("[]") // JSON stringifié des fonctionnalités
+  createdBy            String?
+  updatedAt            DateTime      @updatedAt
+
+  customer         Customer          @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  product          Product           @relation(fields: [productId], references: [id], onDelete: Restrict)
+  creator          Admin?            @relation("LicenseCreator", fields: [createdBy], references: [id])
+  installations    Installation[]
+  events           ActivationEvent[]
+  transferRequests TransferRequest[]
+
+  @@map("licenses")
+}
+
+model Installation {
+  id               String             @id @default(uuid())
+  installationId   String             @unique // ex: INS-01JXYZ123
+  licenseId        String
+  customerId       String
+  productId        String
+  machineName      String
+  appVersion       String
+  osVersion        String
+  firstActivatedAt DateTime           @default(now())
+  lastSeenAt       DateTime           @default(now())
+  status           InstallationStatus @default(ACTIVE)
+  activationIp     String?
+  lastIp           String?
+  revokedAt        DateTime?
+  revokedReason    String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  license  License  @relation(fields: [licenseId], references: [id], onDelete: Restrict)
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  events ActivationEvent[]
+
+  @@map("installations")
+}
+
+model ActivationEvent {
+  id             String              @id @default(uuid())
+  licenseId      String?
+  installationId String?
+  eventType      ActivationEventType
+  ipAddress      String?
+  machineName    String?
+  appVersion     String?
+  success        Boolean
+  failureReason  String?
+  createdAt      DateTime            @default(now())
+
+  license      License?      @relation(fields: [licenseId], references: [id], onDelete: SetNull)
+  installation Installation? @relation(fields: [installationId], references: [id], onDelete: SetNull)
+
+  @@map("activation_events")
+}
+
+model TransferRequest {
+  id                String         @id @default(uuid())
+  licenseId         String
+  oldInstallationId String
+  newInstallationId String?
+  reason            String
+  status            TransferStatus @default(PENDING)
+  requestedBy       String
+  approvedBy        String?
+  requestedAt       DateTime       @default(now())
+  approvedAt        DateTime?
+  completedAt       DateTime?
+
+  license  License @relation(fields: [licenseId], references: [id], onDelete: Restrict)
+  approver Admin?   @relation("TransferApprover", fields: [approvedBy], references: [id])
+
+  @@map("transfer_requests")
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  adminId     String?
+  action      String   // ex: LICENSE_GENERATED, LICENSE_REVOKED, CUSTOMER_CREATED
+  entityType  String   // ex: LICENSE, CUSTOMER, INSTALLATION
+  entityId    String?
+  description String
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  admin Admin? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+}
